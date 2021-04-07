@@ -1,36 +1,65 @@
 <template>
 <div class="wrapper">
-  <div v-if="this.$root.$data.ground.length == 0">
+  <div v-if="groundImages.length == 0">
     <p>No images added!</p>
   </div>
   <div class="images">
-    <div class="image" v-for="image in this.$root.$data.ground" :key="image.id">
-      <div>
-        <img id="imag" :src="'/images/'+image.image">
-      </div>
-      <div class="butn">
-        <button class="auto" v-on:click='removeGroundImage(image)'>Remove</button>
-      </div>
+    <div class="image" v-for="image in groundImages" :key="image.id">
+      <h2>{{image.name}}</h2>
+      <img :src="image.path" />
+      <input v-model="findName" placeholder="New Descriptive Name">
+      <button @click="editItem(image)">Edit</button>
+      <button @click="deleteItem(image)">Delete</button>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'ImageList',
-  props: {
-    images: Array
+  name: 'Ground',
+  data() {
+    return {
+      groundImages: [],
+      findName: "",
+    }
+  },
+  created() {
+    this.getImages();
   },
   methods: {
-    removeGroundImage(image) {
-      for(let i = 0; i < this.$root.$data.ground.length; i++) {
-        if (this.$root.$data.ground[i].id == image.id) {
-            this.$root.$data.ground.splice(i, 1);
-            this.$root.$data.images.push(image);
-        }
+    async getImages() {
+      try {
+        let response = await axios.get("/api/groundImages");
+        this.groundImages = response.data;
+        return true;
+      } catch (error) {
+        console.log(error);
       }
-    }
+    },
+    async deleteItem(item) {
+      try {
+        await axios.delete("/api/groundImages/" + item._id);
+        this.findItem = null;
+        this.getImages();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async editItem(item) {
+      try {
+        await axios.put("/api/groundImages/" + item._id, {
+          name: this.findName,
+        });
+        this.findName = null;
+        this.getImages();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   }
 }
 </script>
@@ -73,7 +102,27 @@ button {
   color: white;
   border: 1px solid white;
   margin-top: 5px;
+  margin-left: 10px;
+  margin-left: 10px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #777777;
+  opacity: 1; /* Firefox */
+}
+
+input {
+  background-color: #e6e6e6;
+  margin-bottom: 10px;
   margin-right: 10px;
+}
+
+.photoInp {
+  background-color: #000066;
+}
+
+img {
+  width: 390px;
 }
 
 </style>

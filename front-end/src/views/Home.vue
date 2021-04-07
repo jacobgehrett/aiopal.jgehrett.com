@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-    <p>Help train the OPAL algorithm! Categorize the following images based upon whether or not the horizon is visible.</p>
+    <p>Help train the OPAL algorithm! Upload images of Mars/other planetary bodies. Categorize them by whether the horizon is visible in the photo (click either "Horizon" or "Ground") and give the image a descriptive name.</p>
     <p>After you have finished, go through the sorted tabs and correct any mistakes.</p>
     <p>Thank you!</p>
   </div>
