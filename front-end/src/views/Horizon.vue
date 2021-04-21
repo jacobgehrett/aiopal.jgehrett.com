@@ -7,9 +7,9 @@
     <div class="image" v-for="image in horizonImages" :key="image.id">
       <h2>{{image.name}}</h2>
       <img :src="image.path" />
-      <input v-model="findName" placeholder="New Descriptive Name">
-      <button @click="editItem(image)">Edit</button>
-      <button @click="deleteItem(image)">Delete</button>
+      <input v-model="findName" placeholder="New Descriptive Name" v-if="user">
+      <button @click="editItem(image)" v-if="user">Edit</button>
+      <button @click="deleteItem(image)" v-if="user">Delete</button>
     </div>
   </div>
 </div>
@@ -27,6 +27,11 @@ export default {
   },
   created() {
     this.getImages();
+  },
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    }
   },
   methods: {
     async getImages() {

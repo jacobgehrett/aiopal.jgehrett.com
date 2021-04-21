@@ -16,10 +16,13 @@
       <div class="link">
         <router-link to="/ground">Ground Images</router-link>
       </div>
+      <div class="link">
+        <router-link to="/dashboard"><i class="fas fa-user"></i></router-link>
+      </div>
     </div>
     <router-view/>
     <div class='header'>
-        <p><a href='https://github.com/jacobgehrett/aiopal.jgehrett.com'>https://github.com/jacobgehrett/aiopal.jgehrett.com</a></p>
+        <p><a href='https://github.com/jacobgehrett/aiopal.jgehrett.com'>https://github.com/jacobgehrett/aiopal.jgehrett.com, 8 hours spent on CP5</a></p>
     </div>
   </div>
 </template>
@@ -50,6 +53,7 @@
   padding: 15px;
   border: 1px solid white;
   background-color: #800080;
+
 }
 
 #nav a {
@@ -61,11 +65,24 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+  background-color: #800080;
+}
+
+#nav a.router-link-exact-active
+.fas {
+  color: #42b983;
 }
 
 #logo {
   width: 34%;
   height: auto;
+}
+
+.fas {
+  font-size: 25px;
+  color: #fff;
+  width: 50px;
+  background: #800080;
 }
 
 </style>
